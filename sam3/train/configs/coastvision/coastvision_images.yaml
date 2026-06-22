@@ -244,8 +244,15 @@ trainer:
       drop_last: False
       collate_fn: ${scratch.collate_fn_val}
 
+  # model:
+  #   _target_: sam3.model_builder.build_sam3_image_model
+  #   bpe_path: ${paths.bpe_path}
+  #   device: cpus
+  #   eval_mode: false
+  #   enable_segmentation: ${scratch.enable_segmentation}
+
   model:
-    _target_: sam3.model_builder.build_sam3_image_model
+    _target_: sam3.train.utils.freeze_model.build_sam3_image_model_frozen
     bpe_path: ${paths.bpe_path}
     device: cpus
     eval_mode: false
