@@ -68,7 +68,10 @@ class Mlp(nn.Module):
         self.drop2 = nn.Dropout(drop_probs[1])
 
     def forward(self, x):
-        x = addmm_act(type(self.act), self.fc1, x)
+        if torch.is_grad_enabled():
+            x = self.act(self.fc1(x))
+        else:
+            x = addmm_act(type(self.act), self.fc1, x) # addmm_act does not support gradients (its for inference only)
         x = self.drop1(x)
         x = self.norm(x)
         x = self.fc2(x)

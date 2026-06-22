@@ -189,7 +189,7 @@ trainer:
   gradient_accumulation_steps: ${scratch.gradient_accumulation_steps}
 
   distributed:
-    backend: nccl
+    backend: gloo
     find_unused_parameters: True
     gradient_as_bucket_view: True
 
